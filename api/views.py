@@ -1,11 +1,12 @@
 import boto3
 import logging
+import requests
 from django.conf import settings
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from botocore.exceptions import ConnectionError, ClientError
-import requests
+from .permissions import IsComingFromServer
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
@@ -25,7 +26,14 @@ except ConnectionError as e:
     logger.info(e)
 
 
+class MainRequest(APIView):
+
+    def get(self, request):
+        return Response({"MSG": "Server UP AND RUNNING"}, status=status.HTTP_200_OK)
+
+
 class WeatherRequest(APIView):
+    # permission_classes = [IsComingFromServer]
 
     def get(self, request):
         try:
@@ -37,7 +45,10 @@ class WeatherRequest(APIView):
         return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+
 class DynamoRequest(APIView):
+
+    # permission_classes = [IsComingFromServer]
 
     def get(self, request):
         try:
@@ -60,6 +71,8 @@ class DynamoRequest(APIView):
 
 
 class DynamoDetailRequest(APIView):
+
+    # permission_classes = [IsComingFromServer]
 
     def get(self, request, date, route):
         try:

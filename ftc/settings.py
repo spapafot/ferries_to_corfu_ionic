@@ -21,12 +21,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "https://f43ewqlxh9.execute-api.eu-central-1.amazonaws.com/dev",
+    "f43ewqlxh9.execute-api.eu-central-1.amazonaws.com",
+    "http://localhost:3000"
+]
 
 
 # Application definition
@@ -39,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_s3_storage',
     "corsheaders",
     'api',
 ]
@@ -56,16 +62,14 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ftc.urls'
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
-    "http://192.168.1.15",
-]
+CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:8100", "http://192.168.1.15:3000", "http://ferriestocorfu.s3-website.eu-central-1.amazonaws.com"]
+
+#CORS_ALLOW_ALL_ORIGINS = True
+
 CORS_ALLOW_METHODS = [
     "GET",
     "OPTIONS",
 ]
-
 
 TEMPLATES = [
     {
@@ -126,7 +130,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+
+STATIC_URL = 'https://ferriestocorfu.eu-central-1.amazonaws.com/'
+STATICFILES_STORAGE = "django_s3_storage.storage.StaticS3Storage"
+AWS_S3_BUCKET_NAME_STATIC = os.environ.get("AWS_STORAGE_BUCKET_NAME")
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -141,18 +148,15 @@ DATABASES = {
 }
 """
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend', 'build', 'static')]
+
+
 DB_ENDPOINT = os.environ.get('DB_ENDPOINT')
 DB_TABLE = os.environ.get('DB_TABLE')
-
-
 AWS_S3_REGION_NAME = os.environ.get('AWS_S3_REGION_NAME')
 AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
-#AWS_STORAGE_BUCKET_NAME = os.environ.get('')
-#AWS_S3_HOST = 's3.me-south-1.amazonaws.com'
 SCRAPE_URL = os.environ.get('SCRAPE_URL')
-
-
+AWS_STORAGE_BUCKET_NAME = os.environ.get('AWS_STORAGE_BUCKET_NAME')
 WEATHER_API_KEY = os.environ.get('WEATHER_API_KEY')
 LAT = os.environ.get('LAT')
 LON = os.environ.get('LON')

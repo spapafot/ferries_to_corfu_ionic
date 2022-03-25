@@ -2,3 +2,6 @@
 .idea
 /venv
 db.sqlite3
+/zappa_settings.json
+/api/__pycache__/
+ftc/__pycache__/
