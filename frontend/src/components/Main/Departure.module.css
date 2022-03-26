@@ -1,0 +1,60 @@
+.container {
+    height: 6rem;
+    font-size: small;
+}
+
+.grid {
+    display: grid;
+    width: 100%;
+    grid-template-rows: 3rem;
+    align-items: center;
+    grid-template-areas:
+    "a b c c c d d d d e e e"
+    "f f f f f g g g i i i i";
+}
+
+.departure {
+    grid-area: a;
+    font-size: medium;
+    font-weight: 600;
+}
+
+.icon {
+    grid-area: b;
+}
+
+.arrival {
+    grid-area: c;
+}
+
+.ship {
+    grid-area: d;
+}
+
+.type {
+    grid-area: e;
+    max-width: 3rem;
+}
+
+.company {
+    grid-area: g;
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    grid-area: f;
+}
+
+.weather {
+    grid-area: i;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+
+}
+
+.weatherIcon {
+    max-width: 1rem;
+}
