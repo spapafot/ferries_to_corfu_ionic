@@ -26,14 +26,6 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    "127.0.0.1",
-    "https://f43ewqlxh9.execute-api.eu-central-1.amazonaws.com/dev",
-    "f43ewqlxh9.execute-api.eu-central-1.amazonaws.com",
-    "http://localhost:3000"
-]
-
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -62,13 +54,23 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ftc.urls'
 
-CORS_ALLOWED_ORIGINS = ["http://localhost:3000", "http://localhost:8100", "http://192.168.1.15:3000", "http://ferriestocorfu.s3-website.eu-central-1.amazonaws.com"]
-
-#CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:8100",
+    "http://192.168.1.15:3000",
+    "http://ferriestocorfu.s3-website.eu-central-1.amazonaws.com"
+]
 
 CORS_ALLOW_METHODS = [
     "GET",
     "OPTIONS",
+]
+
+ALLOWED_HOSTS = [
+    "127.0.0.1",
+    "https://f43ewqlxh9.execute-api.eu-central-1.amazonaws.com/dev",
+    "f43ewqlxh9.execute-api.eu-central-1.amazonaws.com",
+    "http://localhost:3000"
 ]
 
 TEMPLATES = [
@@ -89,12 +91,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ftc.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
